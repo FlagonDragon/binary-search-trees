@@ -4,7 +4,7 @@ console.log('Autobots ROLL OUT!!!');
 
 class Node {
 
-    constructor(data = '', left = '', right = '') {
+    constructor(data = '', left = null, right = null) {
 
         this.data = data;
         this.left = left;
@@ -16,14 +16,14 @@ class Node {
 
 class Tree {
 
-    constructor(array = '', root = '') {
+    constructor(array) {
 
-        this.array = array;
-        this.root = root;
+        this.array = mergeSort(array);
+        this.root = this.buildTree(this.array);
 
     }
 
-    buildTree(arr, start = arr[0], end = arr.length - 1) {
+    buildTree(arr = this.array, start = arr[0], end = arr.length - 1) {
 
         if (start > end) return null;
 
@@ -40,11 +40,20 @@ class Tree {
 
     printTree() {
 
-        this.root = this.buildTree(this.array);
+      prettyPrint(this.root);
 
-        prettyPrint(this.root);
+      return this.root;
 
-        return this.root;
+    }
+
+    insert(value) {
+
+      this.root.left.left.left = new Node(value);
+
+      console.log(this.root.left.left);
+      console.log(this.root.left.left.left);
+
+      
 
     }
 
@@ -74,17 +83,21 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 };
 
-let myArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-
-myArray = mergeSort(myArray);
-console.log(myArray);
+let myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
 
 const weirwood = new Tree(myArray);
-
 console.log(weirwood);
+console.log(weirwood.array);
+
+console.log(weirwood.buildTree());
+console.log(weirwood.printTree());
+
+// weirwood.insert(2);
+weirwood.root.left.left.left = new Node(2);
+// console.log(weirwood.root.left.left);
+// console.log(weirwood.root.left.left.left);
 
 console.log(weirwood.printTree());
 
-// console.log(prettyPrint(weirwood.buildTree(weirwood.array)));
 
 
