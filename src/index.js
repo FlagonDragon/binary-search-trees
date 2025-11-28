@@ -23,7 +23,7 @@ class Tree {
 
     }
 
-    buildTreeCore(arr, start = arr[0], end = arr.length - 1) {
+    buildTree(arr, start = arr[0], end = arr.length - 1) {
 
         if (start > end) return null;
 
@@ -31,16 +31,16 @@ class Tree {
         let root = new Node(arr[mid]);
 
         // Divide from middle element
-        root.left = this.buildTreeCore(arr, start, mid - 1);
-        root.right = this.buildTreeCore(arr, mid + 1, end);
+        root.left = this.buildTree(arr, start, mid - 1);
+        root.right = this.buildTree(arr, mid + 1, end);
 
         return root;
 
     }
 
-    buildTree() {
+    printTree() {
 
-        this.root = this.buildTreeCore(this.array);
+        this.root = this.buildTree(this.array);
 
         prettyPrint(this.root);
 
@@ -83,7 +83,7 @@ const weirwood = new Tree(myArray);
 
 console.log(weirwood);
 
-console.log(weirwood.buildTree());
+console.log(weirwood.printTree());
 
 // console.log(prettyPrint(weirwood.buildTree(weirwood.array)));
 
