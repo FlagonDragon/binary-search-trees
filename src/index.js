@@ -157,6 +157,26 @@ class Tree {
 
   }
 
+  levelOrderForEach(callback = function(root) {console.log('Root data is: '+root.data)
+  }, root = this.root) {
+
+    let queue = [root];
+    
+    while (queue.length >= 1) {
+
+      callback(root);
+
+      if (root.left != null) queue.push(root.left);
+      if (root.right != null) queue.push(root.right);
+      
+      queue.shift();
+      
+      root = queue[0];
+
+    }
+
+  }
+
 };
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -185,7 +205,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 let myArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
-// myArray = [3, 4, 5];
+// myArray = [1, 2, 3, 4, 5];
 
 const weirwood = new Tree(myArray);
 console.log(weirwood);
@@ -194,8 +214,9 @@ console.log(weirwood.printTree());
 
 // weirwood.insert(2);
 // weirwood.deleteItem(67);
-console.log(weirwood.find(5));
+// console.log(weirwood.find(5));
 // console.log(weirwood.printTree());
+weirwood.levelOrderForEach();
 
 
 
