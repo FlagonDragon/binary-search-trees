@@ -18,56 +18,106 @@ class Node {
 
 class Tree {
 
-    constructor(array) {
+  constructor(array) {
 
-        this.array = mergeSort(array);
-        this.root = this.buildTree(this.array);
+    this.array = mergeSort(array);
+    this.root = this.buildTree(this.array);
 
-    }
+  }
 
-    buildTree(arr = this.array, start = 0, end = arr.length - 1) {
+  buildTree(arr = this.array, start = 0, end = arr.length - 1) {
 
-        if (start > end) return null;
+    if (start > end) return null;
 
-        let mid = start + Math.floor((end - start) / 2);
-        let root = new Node(arr[mid]);
+    let mid = start + Math.floor((end - start) / 2);
+    let root = new Node(arr[mid]);
 
-        // loop++
-        // console.log('LOOP NUMBER '+loop);
-        // console.log('start: '+arr[start]+' (Index '+start+')');
-        // console.log('end: '+arr[end]+' (Index '+end+')');
-        // console.log('mid: '+arr[mid]+' (Index '+mid+')');
+    // loop++
+    // console.log('LOOP NUMBER '+loop);
+    // console.log('start: '+arr[start]+' (Index '+start+')');
+    // console.log('end: '+arr[end]+' (Index '+end+')');
+    // console.log('mid: '+arr[mid]+' (Index '+mid+')');
 
-        root.left = this.buildTree(arr, start, mid - 1);
-        root.right = this.buildTree(arr, mid + 1, end);
+    root.left = this.buildTree(arr, start, mid - 1);
+    root.right = this.buildTree(arr, mid + 1, end);
 
-        return root;
+    return root;
 
-    }
+  }
 
-    printTree() {
+  printTree() {
 
-      prettyPrint(this.root);
+    prettyPrint(this.root);
 
-      return this.root;
+    return this.root;
 
-    }
+  }
 
-    insert(value, root = this.root) {
-    
-      if (root === null) return new Node(value);
-      // console.log(root);
-      // console.log(root.left);
-      // console.log(root.right);
+  insert(value, root = this.root) {
 
-      if (value < root.data)
-          root.left = this.insert(value, root.left);
-      else
-          root.right = this.insert(value, root.right);
+    if (root === null) return new Node(value);
+    // console.log(root);
+    // console.log(root.left);
+    // console.log(root.right);
+
+    if (value < root.data)
+      root.left = this.insert(value, root.left);
+    else
+      root.right = this.insert(value, root.right);
+
+    return root;
+
+  }
+
+  getInorderSuccessor(curr) {
+
+    curr = curr.right;
+
+    while (curr !== null && curr.left !== null)
+
+      curr = curr.left;
+
+    return curr;
+
+  }
+
+  deleteItem(value, root = this.root) {
+
+    if (root === null)
 
       return root;
 
+    if (root.data > value)
+
+      root.left = this.deleteItem(value, root.left);
+
+    else if (root.data < value)
+
+      root.right = this.deleteItem(value, root.right);
+
+    else {
+
+      // Node with 0 or 1 child
+      if (root.left === null)
+
+        return root.right;
+
+      if (root.right === null)
+
+        return root.left;
+
+      // Node with 2 children
+      const succ = this.getInorderSuccessor(root);
+
+      root.data = succ.data;
+
+      root.right = this.deleteItem(succ.data, root.right);
+
     }
+
+  return root;
+
+  }
 
 };
 
@@ -96,18 +146,17 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 let myArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-// myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
-myArray = [3, 4, 5];
+myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
+// myArray = [3, 4, 5];
 
 const weirwood = new Tree(myArray);
 console.log(weirwood);
 console.log(weirwood.array);
-
-// console.log(weirwood.buildTree());
 console.log(weirwood.printTree());
 
-weirwood.insert(2);
-console.log(weirwood.printTree());
+// weirwood.insert(2);
+// weirwood.deleteItem(67);
+// console.log(weirwood.printTree());
 
 
 
