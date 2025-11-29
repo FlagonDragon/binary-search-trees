@@ -119,6 +119,44 @@ class Tree {
 
   }
 
+  find(value, curr = this.root) {
+
+    if ((typeof value) != 'number') {
+
+      return 'Invalid value';
+
+    }
+
+    if (curr === null) {
+
+      return 'Tree is empty';
+
+    }
+
+    while (curr != null) {
+
+      console.log('WE BE LOOPIN! CURR: '+curr.data);
+
+      if (curr.data > value) {
+     
+        curr = curr.left;
+
+      } else if (curr.data < value) {
+
+        curr = curr.right;
+
+      } else if (curr.data == value) {
+
+        return curr;
+
+      }
+
+    }
+
+    return 'Value not found!'
+
+  }
+
 };
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -156,6 +194,7 @@ console.log(weirwood.printTree());
 
 // weirwood.insert(2);
 // weirwood.deleteItem(67);
+console.log(weirwood.find(5));
 // console.log(weirwood.printTree());
 
 
