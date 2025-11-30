@@ -170,6 +170,8 @@ class Tree {
     
     while (queue.length >= 1) {
 
+      root = queue[0];
+
       myCallback(root);
       
       if (root.left != null) queue.push(root.left);
@@ -177,14 +179,16 @@ class Tree {
       
       queue.shift();
 
-      root = queue[0];
-
     }
 
   }
 
   preOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
   }, root = this.root) {
+
+    if (!myCallback) {
+      throw new Error('Callback function required')
+    }
 
     if (root == null) return;
     
@@ -197,6 +201,10 @@ class Tree {
 
   inOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
   }, root = this.root) {
+
+    if (!myCallback) {
+      throw new Error('Callback function required')
+    }
 
     if (root == null) return;
     
@@ -211,12 +219,92 @@ class Tree {
   postOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
   }, root = this.root) {
 
+    if (!myCallback) {
+      throw new Error('Callback function required')
+    }
+
     if (root == null) return;
     
     this.postOrderForEach(myCallback, root.left);
     this.postOrderForEach(myCallback, root.right);
 
     myCallback(root);
+
+  }
+
+  findSteps(value, curr = this.root) {
+    
+    if ((typeof value) != 'number') {
+
+      return 'Invalid value';
+
+    }
+
+    if (curr === null) {
+
+      return 'Tree is empty';
+
+    }
+
+    let steps = 0;
+
+    while (curr != null) {
+
+      // console.log('WE BE LOOPIN! CURR: '+curr.data);
+
+      if (curr.data > value) {
+
+        // console.log(curr);
+
+        steps++
+     
+        curr = curr.left;
+
+      } else if (curr.data < value) {
+
+        // console.log(curr);
+
+        steps++
+
+        curr = curr.right;
+
+      } else if (curr.data == value) {
+
+        return steps;
+
+      }
+
+    }
+
+  }
+
+  height(root = this.root) {
+
+    let queue = [root];
+    
+    let maxSteps = 0;
+    let currSteps = 0;
+    
+    while (queue.length >= 1) {
+
+      root = queue[0];
+
+      currSteps = this.findSteps(root.data);
+
+      // console.log(currSteps);
+      
+      if (currSteps > maxSteps) maxSteps = currSteps;
+
+      // console.log(maxSteps);
+      
+      if (root.left != null) queue.push(root.left);
+      if (root.right != null) queue.push(root.right);
+      
+      queue.shift();
+
+    }
+
+    return maxSteps;
 
   }
 
@@ -247,24 +335,38 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 let myArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
-// myArray = [1, 2, 3, 4, 5];
+// myArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 6345, 324];
+myArray = [1, 2, 3, 4, 5];
+myArray = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+
+
 
 const weirwood = new Tree(myArray);
 console.log(weirwood);
 console.log(weirwood.array);
-console.log(weirwood.printTree());
+// console.log(weirwood.printTree());
 
-// weirwood.insert(2);
+weirwood.insert(899);  
+weirwood.insert(898);  
+weirwood.insert(897);  
+weirwood.insert(896);  
+ 
+
+// weirwood.insert(6);
 // weirwood.deleteItem(67);
 // console.log(weirwood.find(5));
-// console.log(weirwood.printTree());
+console.log(weirwood.printTree());
 
 // the ".this" is lost when function is used as calllback. Need to use bind method to link function to desired this
 // weirwood.levelOrderForEach(weirwood.find.bind(weirwood));
+// weirwood.levelOrderForEach();
 // weirwood.preOrderForEach();
 // weirwood.inOrderForEach();
-weirwood.postOrderForEach();
+// weirwood.postOrderForEach();
+// console.log(weirwood.findSteps(400));
+console.log(weirwood.height());
+
 
 
 
