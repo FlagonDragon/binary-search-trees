@@ -183,15 +183,40 @@ class Tree {
 
   }
 
-  inOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
+  preOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
   }, root = this.root) {
 
     if (root == null) return;
     
     myCallback(root);
 
+    this.preOrderForEach(myCallback, root.left);
+    this.preOrderForEach(myCallback, root.right);
+
+  }
+
+  inOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
+  }, root = this.root) {
+
+    if (root == null) return;
+    
     this.inOrderForEach(myCallback, root.left);
+
+    myCallback(root);
+
     this.inOrderForEach(myCallback, root.right);
+
+  }
+
+  postOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
+  }, root = this.root) {
+
+    if (root == null) return;
+    
+    this.postOrderForEach(myCallback, root.left);
+    this.postOrderForEach(myCallback, root.right);
+
+    myCallback(root);
 
   }
 
@@ -237,7 +262,10 @@ console.log(weirwood.printTree());
 
 // the ".this" is lost when function is used as calllback. Need to use bind method to link function to desired this
 // weirwood.levelOrderForEach(weirwood.find.bind(weirwood));
-weirwood.inOrderForEach();
+// weirwood.preOrderForEach();
+// weirwood.inOrderForEach();
+weirwood.postOrderForEach();
+
 
 
 
