@@ -119,8 +119,12 @@ class Tree {
 
   }
 
-  find(value, curr = this.root) {
+  find(value) {
 
+    console.log('LESS GO!!');
+
+    let curr = this.root;
+    
     if ((typeof value) != 'number') {
 
       return 'Invalid value';
@@ -135,7 +139,7 @@ class Tree {
 
     while (curr != null) {
 
-      console.log('WE BE LOOPIN! CURR: '+curr.data);
+      // console.log('WE BE LOOPIN! CURR: '+curr.data);
 
       if (curr.data > value) {
      
@@ -157,20 +161,24 @@ class Tree {
 
   }
 
-  levelOrderForEach(callback = function(root) {console.log('Root data is: '+root.data)
+  levelOrderForEach(myCallback = function(root) {console.log('Root data is: '+root.data)
   }, root = this.root) {
+
+    if (!myCallback) {
+      throw new Error('Callback function required')
+    }
 
     let queue = [root];
     
     while (queue.length >= 1) {
 
-      callback(root);
-
+      myCallback(root);
+      
       if (root.left != null) queue.push(root.left);
       if (root.right != null) queue.push(root.right);
       
       queue.shift();
-      
+
       root = queue[0];
 
     }
@@ -216,7 +224,9 @@ console.log(weirwood.printTree());
 // weirwood.deleteItem(67);
 // console.log(weirwood.find(5));
 // console.log(weirwood.printTree());
-weirwood.levelOrderForEach();
+
+// the ".this" is lost when function is used as calllback. Need to use bind method to link function to desired this
+// weirwood.levelOrderForEach(weirwood.find.bind(weirwood));
 
 
 
