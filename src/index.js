@@ -282,8 +282,6 @@ class Tree {
 
     let root = this.find(value);
 
-    console.log('root: '+root.data);
-
     let queue = [root];
     
     let maxSteps = 0;
@@ -308,13 +306,49 @@ class Tree {
 
   }
 
+  nodeBalance(root = this.root) {
+
+    let leftHeight;
+    let rightHeight;
+
+    if (root.left == null) leftHeight = 0;
+    else leftHeight = this.height(root.left.data);
+
+    if (root.right == null) rightHeight = 0;
+    else rightHeight = this.height(root.right.data);
+
+    // console.log('leftHeight is: '+leftHeight);
+    // console.log('rightHeight is: '+rightHeight);
+    
+    if (Math.abs(leftHeight - rightHeight) <= 1) return 0;
+    else return 1;
+
+  }
+
   isBalanced() {
 
-    if (Math.abs(this.height(this.root.left.data) - this.height(this.root.right.data)) <= 1) return 'Tree is balanced'
-    
-    // 'Tree is balanced';
+    let root = this.root;
 
-    else return 'Tree is not balanced';
+    let queue = [root];
+    
+    let counter = 0;
+    
+    while (queue.length >= 1) {
+
+      root = queue[0];
+      console.log(root);
+      
+      counter += this.nodeBalance(root);
+      
+      if (root.left != null) queue.push(root.left);
+      if (root.right != null) queue.push(root.right);
+      
+      queue.shift();
+
+    }
+
+    if (counter == 0) return 'Tree is balanced';
+    if (counter > 0) return 'Tree is unbalanced'
 
   }
 
@@ -378,7 +412,11 @@ console.log(weirwood.printTree());
 console.log(weirwood.height(800));
 console.log(weirwood.height(200));
 // console.log(weirwood.depth(897));
+// console.log(weirwood.isBalanced());
+// console.log(weirwood.nodeBalance());
 console.log(weirwood.isBalanced());
+
+
 
 
 
