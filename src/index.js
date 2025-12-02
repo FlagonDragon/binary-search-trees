@@ -352,6 +352,22 @@ class Tree {
 
   }
 
+  rebalance() {
+
+    myArray = [];
+
+    this.preOrderForEach(function(root) {myArray.push(root.data)});
+
+    this.array = mergeSort(myArray);
+
+    this.root = this.buildTree();
+
+    this.printTree();
+
+    return this.root;
+
+  }
+
 };
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -394,7 +410,7 @@ console.log(weirwood.array);
 weirwood.insert(899);  
 weirwood.insert(898);  
 weirwood.insert(897);  
-// weirwood.insert(896);  
+weirwood.insert(896);  
  
 
 // weirwood.insert(6);
@@ -409,12 +425,13 @@ console.log(weirwood.printTree());
 // weirwood.inOrderForEach();
 // weirwood.postOrderForEach();
 // console.log(weirwood.findSteps(400));
-console.log(weirwood.height(800));
-console.log(weirwood.height(200));
+// console.log(weirwood.height(800));
+// console.log(weirwood.height(200));
 // console.log(weirwood.depth(897));
 // console.log(weirwood.isBalanced());
 // console.log(weirwood.nodeBalance());
-console.log(weirwood.isBalanced());
+// console.log(weirwood.isBalanced());
+console.log(weirwood.rebalance());
 
 
 
