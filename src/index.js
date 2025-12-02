@@ -278,7 +278,11 @@ class Tree {
 
   }
 
-  height(root = this.root) {
+  height(value = this.root.data) {
+
+    let root = this.find(value);
+
+    console.log('root: '+root.data);
 
     let queue = [root];
     
@@ -289,13 +293,9 @@ class Tree {
 
       root = queue[0];
 
-      currSteps = this.findSteps(root.data);
-
-      // console.log(currSteps);
+      currSteps = this.findSteps(root.data, this.find(value));
       
       if (currSteps > maxSteps) maxSteps = currSteps;
-
-      // console.log(maxSteps);
       
       if (root.left != null) queue.push(root.left);
       if (root.right != null) queue.push(root.right);
