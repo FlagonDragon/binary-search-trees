@@ -232,7 +232,7 @@ class Tree {
 
   }
 
-  findSteps(value, curr = this.root) {
+  depth(value, curr = this.root) {
     
     if ((typeof value) != 'number') {
 
@@ -293,7 +293,7 @@ class Tree {
 
       root = queue[0];
 
-      currSteps = this.findSteps(root.data, this.find(value));
+      currSteps = this.depth(root.data, this.find(value));
       
       if (currSteps > maxSteps) maxSteps = currSteps;
       
@@ -366,6 +366,8 @@ console.log(weirwood.printTree());
 // weirwood.postOrderForEach();
 // console.log(weirwood.findSteps(400));
 console.log(weirwood.height());
+console.log(weirwood.depth(897));
+
 
 
 
