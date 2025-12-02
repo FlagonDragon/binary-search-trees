@@ -332,7 +332,7 @@ class Tree {
     while (queue.length >= 1) {
 
       root = queue[0];
-      console.log(root);
+    //   console.log(root);
       
       counter += this.nodeBalance(root);
       
@@ -343,6 +343,7 @@ class Tree {
 
     }
 
+    // console.log('counter: '+counter);
     if (counter == 0) return 'Tree is balanced';
     if (counter > 0) return 'Tree is unbalanced'
 
@@ -350,7 +351,7 @@ class Tree {
 
   rebalance() {
 
-    myArray = [];
+    let myArray = [];
 
     this.preOrderForEach(function(root) {myArray.push(root.data)});
 
