@@ -1,6 +1,6 @@
 import Tree from "./BST";
 
-console.log('Autobots ROLL OUT!!!');
+// console.log('Autobots ROLL OUT!!!');
 
 function script() {
 
@@ -52,6 +52,6 @@ function script() {
 
 };
 
-console.log(script());
+// console.log(script());
 
 

@@ -365,6 +365,36 @@ class Tree {
 
   }
 
+  height2(root = this.root) {
+
+    if (root === null) return 0;
+
+    let lHeight = this.height2(root.left);
+    let rHeight = this.height2(root.right);
+
+    if (lHeight > rHeight) {
+      return lHeight + 1;
+    } else {
+      return rHeight + 1;
+    }
+
+  }
+
+  levelOrderForEach2(root, queue = [root]) {
+
+    if (root == null) return;
+    
+    if (root.left != null) queue.push(root.left);
+    if (root.right != null) queue.push(root.right);
+
+    console.log(root);
+    
+    queue.shift();
+    root = queue[0];
+    this.levelOrderForEach2(root, queue);
+
+  }
+
 };
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -417,6 +447,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 // the ".this" is lost when function is used as calllback. Need to use bind method to link function to desired this
 // weirwood.levelOrderForEach(weirwood.find.bind(weirwood));
+// console.log('ITERATIVE METHOD:');
 // weirwood.levelOrderForEach();
 // weirwood.preOrderForEach();
 // weirwood.inOrderForEach();
@@ -429,5 +460,12 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 // console.log(weirwood.nodeBalance());
 // console.log(weirwood.isBalanced());
 // console.log(weirwood.rebalance());
+// console.log(weirwood.height());
+// console.log(weirwood.height2(weirwood.root));
+// console.log('RECURSIVE METHOD:');
+// weirwood.levelOrderForEach2(weirwood.root);
+
+
+
 
 export default Tree;
